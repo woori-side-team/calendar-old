@@ -1,7 +1,7 @@
 import React from "react";
 import { RecoilRoot } from "recoil";
 import { Route } from "react-router-dom";
-import { ThemeProvider } from "@emotion/react";
+import { Global, ThemeProvider } from "@emotion/react";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 
@@ -11,7 +11,9 @@ import "@ionic/react/css/core.css";
 /* Basic CSS for apps built with Ionic */
 import "@ionic/react/css/normalize.css";
 import "@ionic/react/css/structure.css";
+/*
 import "@ionic/react/css/typography.css";
+*/
 
 /* Optional CSS utils that can be commented out */
 /*
@@ -29,6 +31,7 @@ import "swiper/css";
 import NavigationBar from "templates/NavigationBar";
 import MonthPage from "templates/month/MonthPage";
 import ThemePage from "templates/theme/ThemePage";
+import { globalStyle } from "styles/Global";
 import { defaultTheme } from "styles/Theme";
 import "styles/IonicTheme.css";
 
@@ -37,6 +40,7 @@ setupIonicReact();
 const App = () => (
   <RecoilRoot>
     <ThemeProvider theme={defaultTheme}>
+      <Global styles={globalStyle} />
       <IonApp>
         <NavigationBar />
         <IonReactRouter>

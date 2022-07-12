@@ -6,6 +6,8 @@ export const globalStyle = css`
     height: 100%;
     margin: 0;
     padding: 0;
+
+    font-family: "Pretendard", sans-serif;
   }
 
   body {
