@@ -1,6 +1,21 @@
 import { Theme } from "@emotion/react";
 
 export const defaultTheme: Theme = {
+  scale: {
+    scale1: "#f2f2f7",
+    scale2: "#e5e5ea",
+    scale3: "#d1d1d6",
+    scale4: "#c7c7cc",
+    scale5: "#aeaeb2",
+    scale6: "#8e8e93",
+    scale7: "#636366",
+    scale8: "#48484a",
+    scale9: "#3a3a3c",
+    scale10: "#2c2c2e",
+    scale11: "#1c1c1e",
+    min: "#f2f2f7", // First.
+    max: "#1c1c1e", // Last.
+  },
   gray: {
     gray1: "#8e8e93",
     gray2: "#aeaeb2",

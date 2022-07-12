@@ -2,6 +2,21 @@ import "@emotion/react";
 
 declare module "@emotion/react" {
   export interface Theme {
+    scale: {
+      scale1: string;
+      scale2: string;
+      scale3: string;
+      scale4: string;
+      scale5: string;
+      scale6: string;
+      scale7: string;
+      scale8: string;
+      scale9: string;
+      scale10: string;
+      scale11: string;
+      min: string;
+      max: string;
+    };
     gray: {
       gray1: string;
       gray2: string;
