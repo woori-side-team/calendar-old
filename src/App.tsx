@@ -23,8 +23,12 @@ import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 */
 
-import MonthPage from "templates/MonthPage";
-import ThemePage from "templates/ThemePage";
+// Swiper.js.
+import "swiper/css";
+
+import NavigationBar from "templates/NavigationBar";
+import MonthPage from "templates/month/MonthPage";
+import ThemePage from "templates/theme/ThemePage";
 import { defaultTheme } from "styles/Theme";
 import "styles/IonicTheme.css";
 
@@ -34,6 +38,7 @@ const App = () => (
   <RecoilRoot>
     <ThemeProvider theme={defaultTheme}>
       <IonApp>
+        <NavigationBar />
         <IonReactRouter>
           <IonRouterOutlet>
             <Route exact path="/">

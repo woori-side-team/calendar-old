@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
-import { IonPage } from "@ionic/react";
+
+import Page, { PageContent } from "templates/Page";
 
 const ThemePage = () => {
   const theme = useTheme();
@@ -10,8 +11,8 @@ const ThemePage = () => {
     Object.values(colors).map((value, index) => <Color key={index} value={value} />);
 
   return (
-    <IonPage>
-      <Container>
+    <Page>
+      <StyledPageContent>
         <Title>Gray</Title>
         {generateColors(theme.gray)}
         <Title>Tint</Title>
@@ -28,18 +29,16 @@ const ThemePage = () => {
         {generateColors(theme.fill)}
         <Title>Disabled</Title>
         <Color value={theme.disabled} />
-      </Container>
-    </IonPage>
+      </StyledPageContent>
+    </Page>
   );
 };
 
-const Container = styled.div`
-  overflow-y: auto;
+const StyledPageContent = styled(PageContent)`
   box-sizing: border-box;
+  overflow-y: auto;
 
-  width: 100%;
-  height: 100%;
-  padding: 16px;
+  padding: 8px;
 `;
 
 const Title = styled.div`
