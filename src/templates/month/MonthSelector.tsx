@@ -1,37 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { css, Theme } from "@emotion/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as SwiperType } from "swiper/types";
 
-const months = ["2022.01", "2022.02", "2022.03", "2022.04", "2022.05"];
+import { useMonths } from "hooks/useMonths";
 
-const MonthSelector = () => (
-  <Swiper slidesPerView={3} centeredSlides>
-    {months.map((value, index) => (
-      <SwiperSlide key={value}>
-        {({ isActive }) => <Slide value={value} index={index} isActive={isActive} />}
-      </SwiperSlide>
-    ))}
-  </Swiper>
-);
+const MonthSelector = () => {
+  const { monthInfos, selectIndex, setSelectIndex } = useMonths();
+  const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
-interface SlideProps {
-  value: string;
-  index: number;
-  isActive: boolean;
-}
-
-const Slide = ({ value, index, isActive }: SlideProps) => {
-  const swiper = useSwiper();
-
-  const handleClick = () => {
-    swiper.slideTo(index);
+  const handleSwiper = (newSwiper: SwiperType) => {
+    setSwiper(newSwiper);
   };
 
+  const handleClickTitle = (index: number) => {
+    setSelectIndex(index);
+  };
+
+  const handleSlideChange = () => {
+    if (swiper !== null) {
+      setSelectIndex(swiper.activeIndex);
+    }
+  };
+
+  useEffect(() => {
+    if (swiper !== null) {
+      swiper.slideTo(selectIndex);
+    }
+  }, [selectIndex, swiper]);
+
   return (
-    <Title isActive={isActive} onClick={handleClick}>
-      {value}
-    </Title>
+    <Swiper slidesPerView={3} centeredSlides onSwiper={handleSwiper} onSlideChange={handleSlideChange}>
+      {monthInfos.map((monthInfo, index) => (
+        <SwiperSlide key={index}>
+          <Title
+            isActive={index === selectIndex}
+            onClick={() => {
+              handleClickTitle(index);
+            }}
+          >
+            {`${monthInfo.year}.${monthInfo.month}`}
+          </Title>
+        </SwiperSlide>
+      ))}
+    </Swiper>
   );
 };
 

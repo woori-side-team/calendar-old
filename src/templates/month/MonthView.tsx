@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { useMonth } from "hooks/useMonth";
+import { useMonthCalendar } from "hooks/useMonthCalendar";
 import { css, Theme } from "@emotion/react";
 
 const weekDayNames = ["일", "월", "화", "수", "목", "금", "토"];
@@ -8,7 +8,7 @@ const weekDayNames = ["일", "월", "화", "수", "목", "금", "토"];
 const MonthView = () => {
   const year = 2022;
   const month = 7;
-  const weeks = useMonth(year, month);
+  const weeks = useMonthCalendar(year, month);
 
   return (
     <Container>

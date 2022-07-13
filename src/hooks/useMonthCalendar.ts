@@ -4,7 +4,7 @@ export interface Day {
   monthDay: number;
 }
 
-export function useMonth(year: number, month: number) {
+export function useMonthCalendar(year: number, month: number) {
   const thisMonthDayCount = new Date(year, month, 0).getDate();
   const thisMonthFirstDay = new Date(year, month - 1, 1);
   const prevMonthLastDay = new Date(year, month - 1, 0);
