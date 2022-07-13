@@ -1,14 +1,17 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 import styled from "@emotion/styled";
-import { useMonthCalendar } from "hooks/useMonthCalendar";
 import { css, Theme } from "@emotion/react";
+
+import { selectedMonthState, selectedYearState } from "states/Selection";
+import { useMonthCalendar } from "hooks/useMonthCalendar";
 
 const weekDayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
 const MonthView = () => {
-  const year = 2022;
-  const month = 7;
-  const weeks = useMonthCalendar(year, month);
+  const selectedYear = useRecoilValue(selectedYearState);
+  const selectedMonth = useRecoilValue(selectedMonthState);
+  const weeks = useMonthCalendar(selectedYear, selectedMonth);
 
   return (
     <Container>
@@ -20,7 +23,7 @@ const MonthView = () => {
       {weeks.map((week, index) => (
         <Row key={index}>
           {week.map(day => (
-            <DayCell isCurrentMonth={day.month === month} key={day.monthDay}>
+            <DayCell isCurrentMonth={day.month === selectedMonth} key={day.monthDay}>
               {day.monthDay}
             </DayCell>
           ))}

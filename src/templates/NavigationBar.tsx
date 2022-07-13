@@ -5,9 +5,15 @@ import { CalendarIcon, ProfileIcon, SearchIcon } from "components/Icons";
 
 const NavigationBar = () => (
   <Container>
-    <SearchIcon />
-    <CalendarIcon />
-    <ProfileIcon />
+    <Button>
+      <SearchIcon />
+    </Button>
+    <Button>
+      <CalendarIcon />
+    </Button>
+    <Button>
+      <ProfileIcon />
+    </Button>
   </Container>
 );
 
@@ -19,6 +25,18 @@ const Container = styled.div`
 
   width: 100%;
   padding: 8px 20px 12px 20px;
+`;
+
+const Button = styled.button`
+  display: flex;
+
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+
+  &:not(:first-of-type) {
+    margin-left: 16px;
+  }
 `;
 
 export default NavigationBar;

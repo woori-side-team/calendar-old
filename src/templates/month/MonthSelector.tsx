@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "@emotion/styled";
 import { css, Theme } from "@emotion/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
 
+import { selectedMonthState, selectedYearState } from "states/Selection";
 import { useMonths } from "hooks/useMonths";
 
 const MonthSelector = () => {
+  const setSelectedYear = useSetRecoilState(selectedYearState);
+  const setSelectedMonth = useSetRecoilState(selectedMonthState);
   const { monthInfos, selectIndex, setSelectIndex } = useMonths();
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
@@ -25,10 +29,13 @@ const MonthSelector = () => {
   };
 
   useEffect(() => {
+    setSelectedYear(monthInfos[selectIndex].year);
+    setSelectedMonth(monthInfos[selectIndex].month);
+
     if (swiper !== null) {
       swiper.slideTo(selectIndex);
     }
-  }, [selectIndex, swiper]);
+  }, [selectIndex, swiper, monthInfos, setSelectedYear, setSelectedMonth]);
 
   return (
     <Swiper slidesPerView={3} centeredSlides onSwiper={handleSwiper} onSlideChange={handleSlideChange}>
