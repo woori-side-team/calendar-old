@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { css, Theme } from "@emotion/react";
 
 import { selectedMonthState, selectedYearState } from "states/Selection";
-import { useMonthCalendar } from "hooks/useMonthCalendar";
+import useMonthCalendar from "hooks/useMonthCalendar";
 
 const weekDayNames = ["일", "월", "화", "수", "목", "금", "토"];
 

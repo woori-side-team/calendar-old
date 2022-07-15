@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
 
 import { selectedMonthState, selectedYearState } from "states/Selection";
-import { useMonths } from "hooks/useMonths";
+import useMonths from "hooks/useMonths";
 
 const MonthSelector = () => {
   const setSelectedYear = useSetRecoilState(selectedYearState);

@@ -21,7 +21,7 @@ function getPrevMonth(monthInfo: MonthInfo): MonthInfo {
   }
 }
 
-export function useMonths() {
+export default function useMonths() {
   const now = new Date();
   const currentYear = now.getFullYear();
   const currentMonth = now.getMonth() + 1;
