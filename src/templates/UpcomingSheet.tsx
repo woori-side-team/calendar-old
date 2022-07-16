@@ -1,9 +1,9 @@
 import React from "react";
 
-import { SheetModal } from "components/Modals";
+import { ModalProps, SheetModal } from "components/Modals";
 
-const UpcomingSheet = () => (
-  <SheetModal isOpen onClose={() => {}}>
+const UpcomingSheet = ({ open, onClose }: Pick<ModalProps, "open" | "onClose">) => (
+  <SheetModal open={open} onClose={onClose}>
     다가오는 일정
   </SheetModal>
 );

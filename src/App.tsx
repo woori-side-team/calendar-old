@@ -28,7 +28,7 @@ import "@ionic/react/css/display.css";
 // Swiper.js.
 import "swiper/css";
 
-import NavigationBar from "templates/NavigationBar";
+import ToolBar from "templates/ToolBar";
 import MonthPage from "templates/month/MonthPage";
 import ThemePage from "templates/theme/ThemePage";
 import { globalStyle } from "styles/Global";
@@ -42,7 +42,7 @@ const App = () => (
     <ThemeProvider theme={defaultTheme}>
       <Global styles={globalStyle} />
       <IonApp>
-        <NavigationBar />
+        <ToolBar />
         <IonReactRouter>
           <IonRouterOutlet>
             <Route exact path="/">

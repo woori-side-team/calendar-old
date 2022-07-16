@@ -2,8 +2,8 @@ import React, { ReactNode } from "react";
 import { IonPage } from "@ionic/react";
 import styled from "@emotion/styled";
 
+import ToolBar from "templates/ToolBar";
 import NavigationBar from "templates/NavigationBar";
-import UpcomingSheet from "templates/UpcomingSheet";
 
 interface PageProps {
   children: ReactNode;
@@ -12,9 +12,9 @@ interface PageProps {
 const Page = ({ children }: PageProps) => (
   <IonPage>
     <Container>
-      <NavigationBar />
+      <ToolBar />
       {children}
-      <UpcomingSheet />
+      <NavigationBar />
     </Container>
   </IonPage>
 );
