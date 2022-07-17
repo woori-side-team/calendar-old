@@ -1,47 +1,66 @@
-import React, { ComponentProps, useState } from "react";
-import { IonRippleEffect } from "@ionic/react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
+import { css, Global } from "@emotion/react";
 
-import UpcomingSheet from "templates/UpcomingSheet";
+import ScheduleSheet from "templates/ScheduleSheet";
+import { CheckIcon, MemoIcon, ScheduleIcon, SettingsIcon } from "components/Icons";
+import { Ripple } from "components/Effects";
 
 const NavigationBar = () => {
-  const [openUpcomingSheet, setOpenUpcomingSheet] = useState(false);
+  const [isScheduleSheetOpen, setScheduleSheetOpen] = useState(false);
 
-  const handleClickUpcomingButton = () => {
-    setOpenUpcomingSheet(true);
+  const handleClickScheduleButton = () => {
+    setScheduleSheetOpen(true);
   };
 
-  const handleCloseUpcomingSheet = () => {
-    setOpenUpcomingSheet(false);
+  const handleCloseScheduleSheet = () => {
+    setScheduleSheetOpen(false);
   };
 
   return (
     <Container>
-      <Button onClick={handleClickUpcomingButton}>일정</Button>
-      <Button>체크리스트</Button>
-      <Button>메모</Button>
-      <Button>설정</Button>
-      <UpcomingSheet open={openUpcomingSheet} onClose={handleCloseUpcomingSheet} />
+      <Global styles={modalOverrideStyle} />
+      <Ripple Component={Button} onClick={handleClickScheduleButton}>
+        <Icon isActive={isScheduleSheetOpen}>
+          <ScheduleIcon />
+        </Icon>
+        <Label>일정</Label>
+      </Ripple>
+      <Ripple Component={Button}>
+        <Icon isActive={false}>
+          <CheckIcon />
+        </Icon>
+        <Label>체크리스트</Label>
+      </Ripple>
+      <Ripple Component={Button}>
+        <Icon isActive={false}>
+          <MemoIcon />
+        </Icon>
+        <Label>메모</Label>
+      </Ripple>
+      <Ripple Component={Button}>
+        <Icon isActive={false}>
+          <SettingsIcon />
+        </Icon>
+        <Label>설정</Label>
+      </Ripple>
+      <ScheduleSheet isOpen={isScheduleSheetOpen} onClose={handleCloseScheduleSheet} />
     </Container>
   );
 };
+
+const barHeight = "80px";
 
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  height: ${barHeight};
 
   background-color: ${({ theme }) => theme.background.secondary};
 `;
 
-const Button = ({ children, ...others }: ComponentProps<"button">) => (
-  <ButtonContainer {...others} className="ion-activatable">
-    {children}
-    <IonRippleEffect />
-  </ButtonContainer>
-);
-
-const ButtonContainer = styled.button`
+const Button = styled.button`
   box-sizing: border-box;
   position: relative;
   display: flex;
@@ -51,12 +70,59 @@ const ButtonContainer = styled.button`
 
   flex: 1;
   margin: 0;
-  padding: 1rem 0;
+  padding: 12px 12px 16px 12px;
   border: 0;
 
   font-family: inherit;
+  font-size: 12px;
   color: ${({ theme }) => theme.scale.scale9};
   background-color: transparent;
+`;
+
+interface IconProps {
+  isActive: boolean;
+}
+
+const Icon = styled.span<IconProps>`
+  position: relative;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  width: 64px;
+  height: 32px;
+
+  & > * {
+    z-index: 1;
+  }
+
+  ${({ theme, isActive }) =>
+    css`
+      &::before {
+        position: absolute;
+        content: "";
+
+        width: ${isActive ? "100%" : "50%"};
+        opacity: ${isActive ? 1 : 0};
+        height: 100%;
+        border-radius: 20px;
+        background-color: ${theme.background.primary};
+        transition: width 0.3s, opacity 0.3s;
+      }
+    `}
+`;
+
+const Label = styled.span`
+  margin-top: 4px;
+`;
+
+// Place the modal above the component.
+const modalOverrideStyle = css`
+  ion-modal {
+    bottom: ${barHeight};
+  }
 `;
 
 export default NavigationBar;
