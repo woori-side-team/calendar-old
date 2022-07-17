@@ -32,7 +32,7 @@ export const defaultTheme: Theme = {
     pink: "#ff2d55",
     purple: "#af52de",
     red: "#ff3b30",
-    teal: "#5ac8ca",
+    teal: "#5ac8fa",
     yellow: "#ffcc00",
   },
   background: {
