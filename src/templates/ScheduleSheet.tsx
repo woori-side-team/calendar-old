@@ -2,14 +2,14 @@ import React from "react";
 import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
 
-import { ModalProps, SheetModal } from "components/Modals";
+import { PersistentSheetModal, PersistentSheetModalProps } from "components/Modals";
 import { Ripple } from "components/Effects";
 
-const ScheduleSheet = ({ isOpen, onClose }: Pick<ModalProps, "isOpen" | "onClose">) => {
+const ScheduleSheet = (props: Omit<PersistentSheetModalProps, "children">) => {
   const theme = useTheme();
 
   return (
-    <SheetModal isOpen={isOpen} onClose={onClose}>
+    <PersistentSheetModal {...props}>
       <Header>
         <Title>다가오는 일정</Title>
         <Ripple Component={EditButton}>편집</Ripple>
@@ -58,7 +58,7 @@ const ScheduleSheet = ({ isOpen, onClose }: Pick<ModalProps, "isOpen" | "onClose
           {"일이삼사오육칠팔구십일이삼사오육칠"}
         </Schedule>
       </Content>
-    </SheetModal>
+    </PersistentSheetModal>
   );
 };
 

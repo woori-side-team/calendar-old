@@ -5,23 +5,20 @@ import { css, Global } from "@emotion/react";
 import ScheduleSheet from "templates/ScheduleSheet";
 import { CheckIcon, MemoIcon, ScheduleIcon, SettingsIcon } from "components/Icons";
 import { Ripple } from "components/Effects";
+import { PersistentSheetModalState } from "components/Modals";
 
 const NavigationBar = () => {
-  const [isScheduleSheetOpen, setScheduleSheetOpen] = useState(false);
+  const [scheduleSheetState, setScheduleSheetState] = useState<PersistentSheetModalState>("Min");
 
   const handleClickScheduleButton = () => {
-    setScheduleSheetOpen(true);
-  };
-
-  const handleCloseScheduleSheet = () => {
-    setScheduleSheetOpen(false);
+    setScheduleSheetState("Full");
   };
 
   return (
     <Container>
       <Global styles={modalOverrideStyle} />
       <Ripple Component={Button} onClick={handleClickScheduleButton}>
-        <Icon isActive={isScheduleSheetOpen}>
+        <Icon isActive={scheduleSheetState !== "Min"}>
           <ScheduleIcon />
         </Icon>
         <Label>일정</Label>
@@ -44,7 +41,7 @@ const NavigationBar = () => {
         </Icon>
         <Label>설정</Label>
       </Ripple>
-      <ScheduleSheet isOpen={isScheduleSheetOpen} onClose={handleCloseScheduleSheet} />
+      <ScheduleSheet state={scheduleSheetState} onChange={setScheduleSheetState} />
     </Container>
   );
 };
