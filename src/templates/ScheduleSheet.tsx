@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
 
 import { ModalProps, SheetModal } from "components/Modals";
+import { Ripple } from "components/Effects";
 
 const ScheduleSheet = ({ isOpen, onClose }: Pick<ModalProps, "isOpen" | "onClose">) => {
   const theme = useTheme();
@@ -11,7 +12,7 @@ const ScheduleSheet = ({ isOpen, onClose }: Pick<ModalProps, "isOpen" | "onClose
     <SheetModal isOpen={isOpen} onClose={onClose}>
       <Header>
         <Title>다가오는 일정</Title>
-        <EditButton>편집</EditButton>
+        <Ripple Component={EditButton}>편집</Ripple>
       </Header>
       <Content>
         <Schedule>
@@ -97,6 +98,7 @@ const Content = styled.div`
 const Schedule = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 
   width: 100%;
 

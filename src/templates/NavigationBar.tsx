@@ -62,7 +62,6 @@ const Container = styled.div`
 
 const Button = styled.button`
   box-sizing: border-box;
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;

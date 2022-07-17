@@ -2,18 +2,19 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import { CalendarIcon, ProfileIcon, SearchIcon } from "components/Icons";
+import { Ripple } from "components/Effects";
 
 const ToolBar = () => (
   <Container>
-    <Button>
+    <Ripple Component={Button}>
       <SearchIcon />
-    </Button>
-    <Button>
+    </Ripple>
+    <Ripple Component={Button}>
       <CalendarIcon />
-    </Button>
-    <Button>
+    </Ripple>
+    <Ripple Component={Button}>
       <ProfileIcon />
-    </Button>
+    </Ripple>
   </Container>
 );
 
@@ -28,6 +29,7 @@ const Container = styled.div`
 `;
 
 const Button = styled.button`
+  overflow: hidden;
   display: flex;
 
   padding: 0;
