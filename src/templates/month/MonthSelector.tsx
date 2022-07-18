@@ -41,7 +41,7 @@ const MonthSelector = ({ selectedMonthInfo, setSelectedMonthInfo }: MonthSelecto
   };
 
   return (
-    <Swiper {...swiperProps} slidesPerView={3} centeredSlides>
+    <StyledSwiper {...swiperProps} slidesPerView={3} centeredSlides>
       {monthInfos.map((monthInfo, index) => (
         <SwiperSlide key={index}>
           <Title
@@ -54,9 +54,13 @@ const MonthSelector = ({ selectedMonthInfo, setSelectedMonthInfo }: MonthSelecto
           </Title>
         </SwiperSlide>
       ))}
-    </Swiper>
+    </StyledSwiper>
   );
 };
+
+const StyledSwiper = styled(Swiper)`
+  width: 100%;
+`;
 
 const createActiveStyle = (theme: Theme) => css`
   border-bottom: 2px solid ${theme.scale.max};

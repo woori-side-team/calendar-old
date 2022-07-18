@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "@emotion/styled";
 
 import { getNow, MonthInfo } from "utils/DateUtils";
 import Page, { PageContent } from "templates/Page";
@@ -7,11 +8,16 @@ import MonthView from "templates/month/MonthView";
 
 const MonthPage = () => (
   <Page>
-    <PageContent>
+    <StyledPageContent>
       <MonthArea />
-    </PageContent>
+    </StyledPageContent>
   </Page>
 );
+
+const StyledPageContent = styled(PageContent)`
+  display: flex;
+  flex-direction: column;
+`;
 
 const MonthArea = () => {
   const [selectedMonthInfo, setSelectedMonthInfo] = useState<MonthInfo>(getNow());

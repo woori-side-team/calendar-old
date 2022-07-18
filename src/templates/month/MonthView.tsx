@@ -89,8 +89,13 @@ function getColors(theme: Theme) {
 }
 
 const Container = styled.div`
+  box-sizing: border-box;
+  overflow-y: auto;
+
   width: 100%;
-  margin-top: 28px;
+  height: 100%;
+  flex: 1;
+  padding-top: 28px;
 `;
 
 const Row = styled.div`
@@ -143,7 +148,7 @@ const DayCell = styled.button<DayCellProps>`
   justify-content: flex-start;
   align-items: center;
 
-  height: 58px;
+  min-height: 58px;
   padding: 0;
   border: 0;
 

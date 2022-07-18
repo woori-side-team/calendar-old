@@ -96,7 +96,7 @@ export const schedulesState = atom<Array<Schedule>>({
     },
     {
       tag: "개인",
-      content: "프론트 공부하기",
+      content: "React 공부하기",
       type: "AllDay",
       start: { year: 2022, month: 7, monthDay: 19 },
       end: { year: 2022, month: 7, monthDay: 21 },
@@ -104,11 +104,27 @@ export const schedulesState = atom<Array<Schedule>>({
     },
     {
       tag: "개인",
+      content: "Vue 공부하기",
+      type: "Hours",
+      start: { year: 2022, month: 7, monthDay: 19, hour: 17, minute: 0 },
+      end: { year: 2022, month: 7, monthDay: 19, hour: 18, minute: 30 },
+      colorIndex: 2,
+    },
+    {
+      tag: "개인",
+      content: "Svelte 공부하기",
+      type: "Hours",
+      start: { year: 2022, month: 7, monthDay: 19, hour: 17, minute: 30 },
+      end: { year: 2022, month: 7, monthDay: 19, hour: 18, minute: 30 },
+      colorIndex: 3,
+    },
+    {
+      tag: "개인",
       content: "백엔드 공부하기",
       type: "AllDay",
       start: { year: 2022, month: 7, monthDay: 19 },
-      end: { year: 2022, month: 7, monthDay: 20 },
-      colorIndex: 3,
+      end: { year: 2022, month: 8, monthDay: 2 },
+      colorIndex: 4,
     },
     {
       tag: "개인",

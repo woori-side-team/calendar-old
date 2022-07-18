@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 
 import ToolBar from "templates/ToolBar";
 import NavigationBar from "templates/NavigationBar";
+import { fixColumnFlexItemOverflow } from "styles/Mixins";
 
 interface PageProps {
   children: ReactNode;
@@ -28,6 +29,8 @@ const Container = styled.div`
 `;
 
 export const PageContent = styled.div`
+  ${fixColumnFlexItemOverflow}
+
   width: 100%;
   height: 100%;
   flex: 1;
