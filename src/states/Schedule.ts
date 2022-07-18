@@ -24,6 +24,14 @@ export const schedulesState = atom<Array<Schedule>>({
   default: [
     {
       tag: "개인",
+      content: "공부하기",
+      type: "AllDay",
+      start: { year: 2022, month: 6, monthDay: 29 },
+      end: { year: 2022, month: 6, monthDay: 29 },
+      colorIndex: 1,
+    },
+    {
+      tag: "개인",
       content: "종소세 내야해!",
       type: "AllDay",
       start: { year: 2022, month: 7, monthDay: 1 },

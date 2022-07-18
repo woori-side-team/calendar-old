@@ -21,8 +21,8 @@ export const SheetModal = ({ children, isOpen, onClose }: SheetModalProps) => (
 
 // breakpoint = min -> MinHeight.
 // breakpoint = max -> MaxHeight.
-// min < breakpoint < max -> MediumHeight.
-export type PersistentSheetModalState = "MinHeight" | "MediumHeight" | "MaxHeight";
+// min < breakpoint < max -> MiddleHeight.
+export type PersistentSheetModalState = "MinHeight" | "MiddleHeight" | "MaxHeight";
 
 export interface PersistentSheetModalProps {
   children: ReactNode;
@@ -72,7 +72,7 @@ export const PersistentSheetModal = ({
         } else if (breakpoint === maxBreakpoint) {
           onChange("MaxHeight");
         } else {
-          onChange("MediumHeight");
+          onChange("MiddleHeight");
         }
       }}
     >

@@ -185,6 +185,7 @@ const AllDayMarker = styled.span<AllDayMarkerProps>`
 
   width: 100%;
   height: 6px;
+  border-radius: 2px;
 
   background-color: ${({ color }) => color};
 `;

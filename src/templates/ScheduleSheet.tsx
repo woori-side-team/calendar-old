@@ -56,8 +56,10 @@ const Title = styled.div`
 `;
 
 const EditButton = styled.button`
+  box-sizing: border-box;
+
   margin-left: auto;
-  padding: 0;
+  padding: 5px;
 
   font-family: inherit;
   color: ${({ theme }) => theme.tint.blue};
