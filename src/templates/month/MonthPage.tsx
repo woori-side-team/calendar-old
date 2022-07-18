@@ -5,16 +5,22 @@ import Page, { PageContent } from "templates/Page";
 import MonthSelector from "templates/month/MonthSelector";
 import MonthView from "templates/month/MonthView";
 
-const MonthPage = () => {
-  const [currentMonthInfo, setCurrentMonthInfo] = useState<MonthInfo>(getNow());
+const MonthPage = () => (
+  <Page>
+    <PageContent>
+      <MonthArea />
+    </PageContent>
+  </Page>
+);
+
+const MonthArea = () => {
+  const [selectedMonthInfo, setSelectedMonthInfo] = useState<MonthInfo>(getNow());
 
   return (
-    <Page>
-      <PageContent>
-        <MonthSelector setCurrentMonthInfo={setCurrentMonthInfo} />
-        <MonthView currentMonthInfo={currentMonthInfo} />
-      </PageContent>
-    </Page>
+    <>
+      <MonthSelector selectedMonthInfo={selectedMonthInfo} setSelectedMonthInfo={setSelectedMonthInfo} />
+      <MonthView selectedMonthInfo={selectedMonthInfo} />
+    </>
   );
 };
 

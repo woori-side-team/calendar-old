@@ -1,13 +1,13 @@
 import { DayInfo, getMonthSize, MonthInfo, getPrevMonth, getNextMonth, getWeekDay } from "utils/DateUtils";
 
-export default function useMonthCalendar(currentMonthInfo: MonthInfo) {
-  const currentMonthSize = getMonthSize(currentMonthInfo);
-  const currentMonthFirstDay: DayInfo = { ...currentMonthInfo, monthDay: 1 };
+export default function useMonthCalendar(monthInfo: MonthInfo) {
+  const monthSize = getMonthSize(monthInfo);
+  const monthFirstDay: DayInfo = { ...monthInfo, monthDay: 1 };
 
-  const prevMonthInfo = getPrevMonth(currentMonthInfo);
+  const prevMonthInfo = getPrevMonth(monthInfo);
   const prevMonthSize = getMonthSize(prevMonthInfo);
 
-  const nextMonthInfo = getNextMonth(currentMonthInfo);
+  const nextMonthInfo = getNextMonth(monthInfo);
 
   const weeks: Array<Array<DayInfo>> = [[]];
   let pushCount = 0;
@@ -24,12 +24,12 @@ export default function useMonthCalendar(currentMonthInfo: MonthInfo) {
     pushCount++;
   }
 
-  for (let monthDay = prevMonthSize - getWeekDay(currentMonthFirstDay) + 1; monthDay <= prevMonthSize; monthDay++) {
+  for (let monthDay = prevMonthSize - getWeekDay(monthFirstDay) + 1; monthDay <= prevMonthSize; monthDay++) {
     pushDay({ ...prevMonthInfo, monthDay });
   }
 
-  for (let monthDay = 1; monthDay <= currentMonthSize; monthDay++) {
-    pushDay({ year: currentMonthInfo.year, month: currentMonthInfo.month, monthDay });
+  for (let monthDay = 1; monthDay <= monthSize; monthDay++) {
+    pushDay({ year: monthInfo.year, month: monthInfo.month, monthDay });
   }
 
   const remainingSize = 7 * 6 - pushCount;

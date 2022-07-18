@@ -8,11 +8,11 @@ import useMonthCalendar from "hooks/useMonthCalendar";
 const weekDayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
 interface MonthViewProps {
-  currentMonthInfo: MonthInfo;
+  selectedMonthInfo: MonthInfo;
 }
 
-const MonthView = ({ currentMonthInfo }: MonthViewProps) => {
-  const weeks = useMonthCalendar(currentMonthInfo);
+const MonthView = ({ selectedMonthInfo }: MonthViewProps) => {
+  const weeks = useMonthCalendar(selectedMonthInfo);
   const now = getNow();
 
   return (
@@ -25,7 +25,7 @@ const MonthView = ({ currentMonthInfo }: MonthViewProps) => {
       {weeks.map((week, index) => (
         <Row key={index}>
           {week.map(day => (
-            <DayCell isCurrentMonth={day.month === currentMonthInfo.month} key={day.monthDay}>
+            <DayCell isSelectedMonth={day.month === selectedMonthInfo.month} key={day.monthDay}>
               <Day isNow={areSameDays(day, now)}>{day.monthDay}</Day>
             </DayCell>
           ))}
@@ -79,7 +79,7 @@ const NameCell = styled.div`
 `;
 
 interface DayCellProps {
-  isCurrentMonth: boolean;
+  isSelectedMonth: boolean;
 }
 
 const DayCell = styled.button<DayCellProps>`
@@ -94,7 +94,7 @@ const DayCell = styled.button<DayCellProps>`
 
   height: 44px;
 
-  ${({ isCurrentMonth, theme }) => (isCurrentMonth ? createHighlightStyle(theme) : createDisabledStyle(theme))}
+  ${({ isSelectedMonth, theme }) => (isSelectedMonth ? createHighlightStyle(theme) : createDisabledStyle(theme))}
 `;
 
 interface DayProps {

@@ -8,11 +8,16 @@ import { MonthInfo } from "utils/DateUtils";
 import useMonthSelection from "hooks/useMonthSelection";
 
 interface MonthSelectorProps {
-  setCurrentMonthInfo: (value: MonthInfo) => void;
+  selectedMonthInfo: MonthInfo;
+  setSelectedMonthInfo: (value: MonthInfo) => void;
 }
 
-const MonthSelector = ({ setCurrentMonthInfo }: MonthSelectorProps) => {
-  const { monthInfos, selectIndex, setSelectIndex } = useMonthSelection();
+const MonthSelector = ({ selectedMonthInfo, setSelectedMonthInfo }: MonthSelectorProps) => {
+  const {
+    monthInfos,
+    selectedIndex: selectIndex,
+    setSelectedIndex: setSelectIndex,
+  } = useMonthSelection(selectedMonthInfo);
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
   const handleSwiper = (newSwiper: SwiperType) => {
@@ -30,12 +35,12 @@ const MonthSelector = ({ setCurrentMonthInfo }: MonthSelectorProps) => {
   };
 
   useEffect(() => {
-    setCurrentMonthInfo(monthInfos[selectIndex]);
+    setSelectedMonthInfo(monthInfos[selectIndex]);
 
     if (swiper !== null) {
       swiper.slideTo(selectIndex);
     }
-  }, [selectIndex, swiper, monthInfos, setCurrentMonthInfo]);
+  }, [selectIndex, swiper, monthInfos, setSelectedMonthInfo]);
 
   return (
     <Swiper slidesPerView={3} centeredSlides onSwiper={handleSwiper} onSlideChange={handleSlideChange}>
