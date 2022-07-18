@@ -58,7 +58,6 @@ export const PersistentSheetModal = ({
 
   return (
     <IonModal
-      className="fd"
       ref={modalRef}
       isOpen
       canDismiss={false}

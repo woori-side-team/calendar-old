@@ -1,12 +1,18 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 import styled from "@emotion/styled";
-import { useTheme } from "@emotion/react";
+import { Theme, useTheme } from "@emotion/react";
 
+import { getNow } from "utils/DateUtils";
+import { schedulesState } from "states/Schedule";
 import { PersistentSheetModal, PersistentSheetModalProps } from "components/Modals";
 import { Ripple } from "components/Effects";
 
 const ScheduleSheet = (props: Omit<PersistentSheetModalProps, "children">) => {
   const theme = useTheme();
+  const schedules = useRecoilValue(schedulesState);
+  const now = getNow();
+  const colors = getColors(theme);
 
   return (
     <PersistentSheetModal {...props}>
@@ -15,52 +21,24 @@ const ScheduleSheet = (props: Omit<PersistentSheetModalProps, "children">) => {
         <Ripple Component={EditButton}>편집</Ripple>
       </Header>
       <Content>
-        <Schedule>
-          <Marker backgroundColor={theme.tint.indigo} scheduleType="Hours">
-            1
-          </Marker>
-          {"[업무] 김대리님한테 기획서 전달"}
-        </Schedule>
-        <Schedule>
-          <Marker backgroundColor={theme.tint.orange} scheduleType="Hours">
-            1
-          </Marker>
-          {"[업무] 개발팀과 QA 미팅 @14:00"}
-        </Schedule>
-        <Schedule>
-          <Marker backgroundColor={theme.tint.pink} scheduleType="Hours">
-            1
-          </Marker>
-          {"[개인] 가족 모임 @19:00, 강남역"}
-        </Schedule>
-        <Schedule>
-          <Marker backgroundColor={theme.tint.teal} scheduleType="AllDay">
-            1
-          </Marker>
-          {"[개인] 종소세 내야해!!!! @9:00"}
-        </Schedule>
-        <Schedule>
-          <Marker backgroundColor={theme.tint.orange} scheduleType="Hours">
-            4
-          </Marker>
-          {"일이삼사오육칠팔구십일이삼사오육칠"}
-        </Schedule>
-        <Schedule>
-          <Marker backgroundColor={theme.tint.indigo} scheduleType="Hours">
-            6
-          </Marker>
-          {"일이삼사오육칠팔구십일이삼사오육칠"}
-        </Schedule>
-        <Schedule>
-          <Marker backgroundColor={theme.tint.pink} scheduleType="Hours">
-            11
-          </Marker>
-          {"일이삼사오육칠팔구십일이삼사오육칠"}
-        </Schedule>
+        {schedules
+          .filter(schedule => schedule.start.month === now.month)
+          .map((schedule, index) => (
+            <Schedule key={index}>
+              <Marker color={colors[schedule.colorIndex % colors.length]} type={schedule.type}>
+                {schedule.start.monthDay}
+              </Marker>
+              {`[${schedule.tag}] ${schedule.content}`}
+            </Schedule>
+          ))}
       </Content>
     </PersistentSheetModal>
   );
 };
+
+function getColors(theme: Theme) {
+  return [theme.tint.indigo, theme.tint.orange, theme.tint.pink, theme.tint.teal];
+}
 
 const Header = styled.div`
   box-sizing: border-box;
@@ -111,8 +89,8 @@ const Schedule = styled.div`
 `;
 
 interface MarkerProps {
-  backgroundColor: string;
-  scheduleType: "Hours" | "AllDay";
+  color: string;
+  type: "Hours" | "AllDay";
 }
 
 const Marker = styled.div<MarkerProps>`
@@ -126,9 +104,9 @@ const Marker = styled.div<MarkerProps>`
   margin-left: 40px;
   margin-right: 14px;
   color: ${({ theme }) => theme.background.primary};
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background-color: ${({ color }) => color};
 
-  border-radius: ${({ scheduleType }) => (scheduleType === "Hours" ? "50%" : 0)};
+  border-radius: ${({ type }) => (type === "Hours" ? "50%" : 0)};
 `;
 
 export default ScheduleSheet;

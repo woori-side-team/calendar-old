@@ -7,11 +7,18 @@ export interface DayInfo extends MonthInfo {
   monthDay: number;
 }
 
-export function createInfoFromDate(date: Date): DayInfo {
+export interface TimeInfo extends DayInfo {
+  hour: number;
+  minute: number;
+}
+
+export function createInfoFromDate(date: Date): TimeInfo {
   return {
     year: date.getFullYear(),
     month: date.getMonth() + 1,
     monthDay: date.getDate(),
+    hour: date.getHours(),
+    minute: date.getMinutes(),
   };
 }
 
