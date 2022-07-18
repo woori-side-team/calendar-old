@@ -2,23 +2,23 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { css, Global } from "@emotion/react";
 
-import ScheduleSheet from "templates/ScheduleSheet";
 import { CheckIcon, MemoIcon, ScheduleIcon, SettingsIcon } from "components/Icons";
 import { Ripple } from "components/Effects";
 import { PersistentSheetModalState } from "components/Modals";
+import ScheduleSheet from "templates/ScheduleSheet";
 
 const NavigationBar = () => {
-  const [scheduleSheetState, setScheduleSheetState] = useState<PersistentSheetModalState>("Min");
+  const [scheduleSheetState, setScheduleSheetState] = useState<PersistentSheetModalState>("MinHeight");
 
   const handleClickScheduleButton = () => {
-    setScheduleSheetState("Full");
+    setScheduleSheetState(scheduleSheetState === "MinHeight" ? "MaxHeight" : "MinHeight");
   };
 
   return (
     <Container>
       <Global styles={modalOverrideStyle} />
       <Ripple Component={Button} onClick={handleClickScheduleButton}>
-        <Icon isActive={scheduleSheetState !== "Min"}>
+        <Icon isActive={scheduleSheetState !== "MinHeight"}>
           <ScheduleIcon />
         </Icon>
         <Label>일정</Label>
@@ -41,7 +41,7 @@ const NavigationBar = () => {
         </Icon>
         <Label>설정</Label>
       </Ripple>
-      <ScheduleSheet state={scheduleSheetState} onChange={setScheduleSheetState} />
+      <ScheduleSheet breakpoints={[0.1, 0.75]} state={scheduleSheetState} onChange={setScheduleSheetState} />
     </Container>
   );
 };
