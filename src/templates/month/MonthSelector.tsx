@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { css, Theme } from "@emotion/react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Swiper as SwiperType } from "swiper/types";
 
-import { MonthInfo } from "utils/DateUtils";
-import useMonthSelection from "hooks/useMonthSelection";
+import { getNextMonth, getPrevMonth, MonthInfo } from "utils/DateUtils";
+import useInfiniteSwiper from "hooks/useInfiniteSwiper";
 
 interface MonthSelectorProps {
   selectedMonthInfo: MonthInfo;
@@ -13,41 +12,40 @@ interface MonthSelectorProps {
 }
 
 const MonthSelector = ({ selectedMonthInfo, setSelectedMonthInfo }: MonthSelectorProps) => {
-  const {
-    monthInfos,
-    selectedIndex: selectIndex,
-    setSelectedIndex: setSelectIndex,
-  } = useMonthSelection(selectedMonthInfo);
-  const [swiper, setSwiper] = useState<SwiperType | null>(null);
+  const initialMonthInfos: Array<MonthInfo> = [];
 
-  const handleSwiper = (newSwiper: SwiperType) => {
-    setSwiper(newSwiper);
-  };
+  for (let month = 1; month <= 12; month++) {
+    initialMonthInfos.push({
+      year: selectedMonthInfo.year,
+      month,
+    });
+  }
+
+  const {
+    items: monthInfos,
+    selectedIndex,
+    setSelectedIndex,
+    swiperProps,
+  } = useInfiniteSwiper<MonthInfo>({
+    initialItems: initialMonthInfos,
+    initialSelectedIndex: selectedMonthInfo.month - 1,
+    createPrevItem: getPrevMonth,
+    createNextItem: getNextMonth,
+    onSelectItem: newMonthInfo => {
+      setSelectedMonthInfo(newMonthInfo);
+    },
+  });
 
   const handleClickTitle = (index: number) => {
-    setSelectIndex(index);
+    setSelectedIndex(index);
   };
-
-  const handleSlideChange = () => {
-    if (swiper !== null) {
-      setSelectIndex(swiper.activeIndex);
-    }
-  };
-
-  useEffect(() => {
-    setSelectedMonthInfo(monthInfos[selectIndex]);
-
-    if (swiper !== null) {
-      swiper.slideTo(selectIndex);
-    }
-  }, [selectIndex, swiper, monthInfos, setSelectedMonthInfo]);
 
   return (
-    <Swiper slidesPerView={3} centeredSlides onSwiper={handleSwiper} onSlideChange={handleSlideChange}>
+    <Swiper {...swiperProps} slidesPerView={3} centeredSlides>
       {monthInfos.map((monthInfo, index) => (
         <SwiperSlide key={index}>
           <Title
-            isActive={index === selectIndex}
+            isActive={index === selectedIndex}
             onClick={() => {
               handleClickTitle(index);
             }}
