@@ -1,42 +1,21 @@
 import { useEffect, useState } from "react";
 
-interface MonthInfo {
-  year: number;
-  month: number;
-}
+import { MonthInfo, getPrevMonth, getNextMonth, getNow } from "utils/DateUtils";
 
-function getNextMonth(monthInfo: MonthInfo): MonthInfo {
-  if (monthInfo.month === 12) {
-    return { year: monthInfo.year + 1, month: 1 };
-  } else {
-    return { year: monthInfo.year, month: monthInfo.month + 1 };
-  }
-}
-
-function getPrevMonth(monthInfo: MonthInfo): MonthInfo {
-  if (monthInfo.month === 1) {
-    return { year: monthInfo.year - 1, month: 12 };
-  } else {
-    return { year: monthInfo.year, month: monthInfo.month - 1 };
-  }
-}
-
-export default function useMonths() {
-  const now = new Date();
-  const currentYear = now.getFullYear();
-  const currentMonth = now.getMonth() + 1;
+export default function useMonthSelection() {
+  const now = getNow();
 
   const initialMonthInfos: Array<MonthInfo> = [];
 
   for (let month = 1; month <= 12; month++) {
     initialMonthInfos.push({
-      year: currentYear,
+      year: now.year,
       month,
     });
   }
 
   const [monthInfos, setMonthInfos] = useState<Array<MonthInfo>>(initialMonthInfos);
-  const [selectIndex, setSelectIndex] = useState(currentMonth - 1);
+  const [selectIndex, setSelectIndex] = useState(now.month - 1);
 
   useEffect(() => {
     setMonthInfos(prevMonthInfos => {

@@ -1,17 +1,19 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
 import styled from "@emotion/styled";
 import { css, Theme } from "@emotion/react";
 
-import { selectedMonthState, selectedYearState } from "states/Selection";
+import { areSameDays, getNow, MonthInfo } from "utils/DateUtils";
 import useMonthCalendar from "hooks/useMonthCalendar";
 
 const weekDayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
-const MonthView = () => {
-  const selectedYear = useRecoilValue(selectedYearState);
-  const selectedMonth = useRecoilValue(selectedMonthState);
-  const weeks = useMonthCalendar(selectedYear, selectedMonth);
+interface MonthViewProps {
+  currentMonthInfo: MonthInfo;
+}
+
+const MonthView = ({ currentMonthInfo }: MonthViewProps) => {
+  const weeks = useMonthCalendar(currentMonthInfo);
+  const now = getNow();
 
   return (
     <Container>
@@ -23,8 +25,8 @@ const MonthView = () => {
       {weeks.map((week, index) => (
         <Row key={index}>
           {week.map(day => (
-            <DayCell isCurrentMonth={day.month === selectedMonth} key={day.monthDay}>
-              {day.monthDay}
+            <DayCell isCurrentMonth={day.month === currentMonthInfo.month} key={day.monthDay}>
+              <Day isNow={areSameDays(day, now)}>{day.monthDay}</Day>
             </DayCell>
           ))}
         </Row>
@@ -50,6 +52,8 @@ const cellStyle = css`
 
   width: 100%;
   flex: 1;
+
+  background-color: transparent;
 `;
 
 const createDisabledStyle = (theme: Theme) => css`
@@ -74,12 +78,35 @@ const NameCell = styled.div`
   ${({ theme }) => createHighlightStyle(theme)}
 `;
 
-const DayCell = styled.div<{ isCurrentMonth: boolean }>`
+interface DayCellProps {
+  isCurrentMonth: boolean;
+}
+
+const DayCell = styled.button<DayCellProps>`
   ${cellStyle}
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0;
+  border: 0;
 
   height: 44px;
 
   ${({ isCurrentMonth, theme }) => (isCurrentMonth ? createHighlightStyle(theme) : createDisabledStyle(theme))}
+`;
+
+interface DayProps {
+  isNow: boolean;
+}
+
+const Day = styled.span<DayProps>`
+  width: 100%;
+  line-height: 26px;
+  border-radius: 8px;
+
+  background-color: ${({ theme, isNow }) => (isNow ? theme.background.secondary : "transparent")};
 `;
 
 export default MonthView;
