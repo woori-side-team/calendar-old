@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Swiper } from "swiper/types";
 
 interface Args<Item> {
@@ -18,7 +18,7 @@ export default function useInfiniteSwiper<Item>({
 }: Args<Item>) {
   const [items, setItems] = useState<Array<Item>>(initialItems);
   const [selectedIndex, setSelectedIndex] = useState(initialSelectedIndex);
-  const [swiper, setSwiper] = useState<Swiper | null>(null);
+  const swiperRef = useRef<Swiper | null>(null);
 
   useEffect(() => {
     setItems(prevItems => {
@@ -37,18 +37,18 @@ export default function useInfiniteSwiper<Item>({
   useEffect(() => {
     onSelectItem(items[selectedIndex]);
 
-    if (swiper !== null) {
-      swiper.slideTo(selectedIndex);
+    if (swiperRef.current !== null) {
+      swiperRef.current.slideTo(selectedIndex);
     }
-  }, [selectedIndex, swiper, items, onSelectItem]);
+  }, [selectedIndex, items, onSelectItem]);
 
   const swiperProps = {
     onSwiper: (newSwiper: Swiper) => {
-      setSwiper(newSwiper);
+      swiperRef.current = newSwiper;
     },
     onSlideChange: () => {
-      if (swiper !== null) {
-        setSelectedIndex(swiper.activeIndex);
+      if (swiperRef.current !== null) {
+        setSelectedIndex(swiperRef.current.activeIndex);
       }
     },
   };
