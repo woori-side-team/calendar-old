@@ -14,7 +14,7 @@ const NavigationBar = () => {
     <Container>
       <Global styles={modalOverrideStyle} />
       <Ripple Component={Button} onClick={handleClickScheduleButton}>
-        <Icon isActive={false}>
+        <Icon isActive={true}>
           <ScheduleIcon />
         </Icon>
         <Label>일정</Label>

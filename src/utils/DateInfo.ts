@@ -128,4 +128,30 @@ export default class DateInfo {
       monthDay: this.monthDay + value,
     });
   }
+
+  // this <= ... <= other.
+  getDaysUntil(other: DateInfo): Array<DateInfo> {
+    if (this.compare(other) > 0) {
+      return [];
+    }
+
+    if (this.isSameDay(other)) {
+      return [this];
+    }
+
+    const result: Array<DateInfo> = [this];
+
+    while (true) {
+      const next = result[result.length - 1].addDay(1);
+
+      if (!next.isSameDay(other)) {
+        result.push(next);
+      } else {
+        break;
+      }
+    }
+
+    result.push(other);
+    return result;
+  }
 }

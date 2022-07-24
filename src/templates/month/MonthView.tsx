@@ -18,16 +18,25 @@ const MonthView = ({ selectedMonthInfo }: MonthViewProps) => {
   const now = DateInfo.now();
   const colors = getColors(theme);
 
-  const scheduleMap: Record<string, Array<Schedule>> = {};
+  // Key = Day key, Value = [Schedule, Number of days of the schedule]
+  const scheduleMap: Record<string, Array<[Schedule, number]>> = {};
 
   for (const schedule of schedules) {
-    const startKey = getDayKey(schedule.start);
+    const dayInfos = schedule.start.getDaysUntil(schedule.end);
 
-    if (typeof scheduleMap[startKey] === "undefined") {
-      scheduleMap[startKey] = [];
+    for (const dayInfo of dayInfos) {
+      const dayKey = getDayKey(dayInfo);
+
+      if (typeof scheduleMap[dayKey] === "undefined") {
+        scheduleMap[dayKey] = [];
+      }
+
+      scheduleMap[dayKey].push([schedule, dayInfos.length]);
     }
+  }
 
-    scheduleMap[startKey].push(schedule);
+  for (const values of Object.values(scheduleMap)) {
+    values.sort((value1, value2) => value2[1] - value1[1]);
   }
 
   return (
@@ -44,24 +53,28 @@ const MonthView = ({ selectedMonthInfo }: MonthViewProps) => {
 
             const allDaySchedules = !currentSchedules
               ? []
-              : currentSchedules.filter(schedule => schedule.type === "AllDay");
+              : currentSchedules.filter(([schedule]) => schedule.type === "AllDay");
 
             const hoursSchedules = !currentSchedules
               ? []
-              : currentSchedules.filter(schedule => schedule.type === "Hours");
+              : currentSchedules.filter(([schedule]) => schedule.type === "Hours");
 
             const hoursOnly = allDaySchedules.length === 0;
 
             return (
               <DayCell key={day.monthDay} isSelectedMonth={day.isSameMonth(selectedMonthInfo)}>
                 <Day isNow={day.isSameDay(now)}>{day.monthDay}</Day>
-                {allDaySchedules.map((schedule, scheduleIndex) => (
+                {allDaySchedules.map(([schedule], scheduleIndex) => (
                   <Markers key={scheduleIndex} alignCenter={false}>
-                    <AllDayMarker color={colors[schedule.colorIndex % colors.length]} />
+                    <AllDayMarker
+                      color={colors[schedule.colorIndex % colors.length]}
+                      isStart={day.isSameDay(schedule.start)}
+                      isEnd={day.isSameDay(schedule.end)}
+                    />
                   </Markers>
                 ))}
                 <Markers alignCenter={hoursOnly}>
-                  {hoursSchedules.map((schedule, scheduleIndex) => (
+                  {hoursSchedules.map(([schedule], scheduleIndex) => (
                     <HoursMarker
                       key={scheduleIndex}
                       color={colors[schedule.colorIndex % colors.length]}
@@ -183,6 +196,8 @@ const Markers = styled.span<MarkersProps>`
 
 interface AllDayMarkerProps {
   color: string;
+  isStart: boolean;
+  isEnd: boolean;
 }
 
 const AllDayMarker = styled.span<AllDayMarkerProps>`
@@ -190,9 +205,12 @@ const AllDayMarker = styled.span<AllDayMarkerProps>`
 
   width: 100%;
   height: 6px;
-  border-radius: 2px;
 
   background-color: ${({ color }) => color};
+
+  ${({ isStart }) => isStart && `border-top-left-radius: 2px; border-bottom-left-radius: 2px;`}
+
+  ${({ isEnd }) => isEnd && `border-top-right-radius: 2px; border-bottom-right-radius: 2px;`}
 `;
 
 interface HoursMarkerProps {
