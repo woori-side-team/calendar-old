@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 
 import ToolBar from "templates/ToolBar";
 import NavigationBar from "templates/NavigationBar";
+import ScheduleSheet from "templates/ScheduleSheet";
 import { fixColumnFlexItemOverflow } from "styles/Mixins";
 
 interface PageProps {
@@ -16,6 +17,7 @@ const Page = ({ children }: PageProps) => (
       <ToolBar />
       {children}
       <NavigationBar />
+      <ScheduleSheet />
     </Container>
   </IonPage>
 );

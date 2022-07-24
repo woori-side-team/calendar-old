@@ -28,7 +28,7 @@ export interface PersistentSheetModalProps {
   children: ReactNode;
   breakpoints?: Array<number>;
   state: PersistentSheetModalState;
-  onChange: (newState: PersistentSheetModalState) => void;
+  onChange?: (newState: PersistentSheetModalState) => void;
 }
 
 export const PersistentSheetModal = ({
@@ -67,12 +67,14 @@ export const PersistentSheetModal = ({
       onIonBreakpointDidChange={async event => {
         const breakpoint = (await event.target.getCurrentBreakpoint()) ?? minBreakpoint;
 
-        if (breakpoint === minBreakpoint) {
-          onChange("MinHeight");
-        } else if (breakpoint === maxBreakpoint) {
-          onChange("MaxHeight");
-        } else {
-          onChange("MiddleHeight");
+        if (typeof onChange !== "undefined") {
+          if (breakpoint === minBreakpoint) {
+            onChange("MinHeight");
+          } else if (breakpoint === maxBreakpoint) {
+            onChange("MaxHeight");
+          } else {
+            onChange("MiddleHeight");
+          }
         }
       }}
     >

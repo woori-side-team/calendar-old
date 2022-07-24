@@ -5,17 +5,17 @@ import { Theme, useTheme } from "@emotion/react";
 
 import DateInfo from "utils/DateInfo";
 import { schedulesState } from "states/Schedule";
-import { PersistentSheetModal, PersistentSheetModalProps } from "components/Modals";
+import { PersistentSheetModal } from "components/Modals";
 import { Ripple } from "components/Effects";
 
-const ScheduleSheet = (props: Omit<PersistentSheetModalProps, "children">) => {
+const ScheduleSheet = () => {
   const theme = useTheme();
   const schedules = useRecoilValue(schedulesState);
   const now = DateInfo.now();
   const colors = getColors(theme);
 
   return (
-    <PersistentSheetModal {...props}>
+    <PersistentSheetModal breakpoints={[0.1, 0.75]} state="MinHeight">
       <Header>
         <Title>다가오는 일정</Title>
         <Ripple Component={EditButton}>편집</Ripple>
