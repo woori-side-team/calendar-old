@@ -3,19 +3,19 @@ import { useRecoilValue } from "recoil";
 import styled from "@emotion/styled";
 import { css, Theme, useTheme } from "@emotion/react";
 
-import { areSameDays, DayInfo, getNow, MonthInfo } from "utils/DateUtils";
+import DateInfo from "utils/DateInfo";
 import { Schedule, schedulesState } from "states/Schedule";
 import useMonthCalendar from "hooks/useMonthCalendar";
 
 interface MonthViewProps {
-  selectedMonthInfo: MonthInfo;
+  selectedMonthInfo: DateInfo;
 }
 
 const MonthView = ({ selectedMonthInfo }: MonthViewProps) => {
   const schedules = useRecoilValue(schedulesState);
   const theme = useTheme();
   const weeks = useMonthCalendar(selectedMonthInfo);
-  const now = getNow();
+  const now = DateInfo.now();
   const colors = getColors(theme);
 
   const scheduleMap: Record<string, Array<Schedule>> = {};
@@ -53,8 +53,8 @@ const MonthView = ({ selectedMonthInfo }: MonthViewProps) => {
             const hoursOnly = allDaySchedules.length === 0;
 
             return (
-              <DayCell isSelectedMonth={day.month === selectedMonthInfo.month} key={day.monthDay}>
-                <Day isNow={areSameDays(day, now)}>{day.monthDay}</Day>
+              <DayCell key={day.monthDay} isSelectedMonth={day.isSameMonth(selectedMonthInfo)}>
+                <Day isNow={day.isSameDay(now)}>{day.monthDay}</Day>
                 {allDaySchedules.map((schedule, scheduleIndex) => (
                   <Markers key={scheduleIndex} alignCenter={false}>
                     <AllDayMarker color={colors[schedule.colorIndex % colors.length]} />
@@ -80,7 +80,7 @@ const MonthView = ({ selectedMonthInfo }: MonthViewProps) => {
 
 const weekDayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
-function getDayKey(dayInfo: DayInfo) {
+function getDayKey(dayInfo: DateInfo) {
   return `${dayInfo.year}:${dayInfo.month}:${dayInfo.monthDay}`;
 }
 

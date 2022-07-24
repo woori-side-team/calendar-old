@@ -1,18 +1,18 @@
-import { DayInfo, getMonthSize, MonthInfo, getPrevMonth, getNextMonth, getWeekDay } from "utils/DateUtils";
+import DateInfo from "utils/DateInfo";
 
-export default function useMonthCalendar(monthInfo: MonthInfo) {
-  const monthSize = getMonthSize(monthInfo);
-  const monthFirstDay: DayInfo = { ...monthInfo, monthDay: 1 };
+export default function useMonthCalendar(monthInfo: DateInfo) {
+  const monthSize = monthInfo.getMonthSize();
+  const monthFirstDay = monthInfo.getFirstDayOfMonth();
 
-  const prevMonthInfo = getPrevMonth(monthInfo);
-  const prevMonthSize = getMonthSize(prevMonthInfo);
+  const prevMonthInfo = monthInfo.addMonth(-1);
+  const prevMonthSize = prevMonthInfo.getMonthSize();
 
-  const nextMonthInfo = getNextMonth(monthInfo);
+  const nextMonthInfo = monthInfo.addMonth(1);
 
-  const weeks: Array<Array<DayInfo>> = [[]];
+  const weeks: Array<Array<DateInfo>> = [[]];
   let pushCount = 0;
 
-  function pushDay(day: DayInfo) {
+  function pushDay(day: DateInfo) {
     const currentWeek = weeks[weeks.length - 1];
 
     if (currentWeek.length < 7) {
@@ -24,18 +24,18 @@ export default function useMonthCalendar(monthInfo: MonthInfo) {
     pushCount++;
   }
 
-  for (let monthDay = prevMonthSize - getWeekDay(monthFirstDay) + 1; monthDay <= prevMonthSize; monthDay++) {
-    pushDay({ ...prevMonthInfo, monthDay });
+  for (let monthDay = prevMonthSize - monthFirstDay.weekDay + 1; monthDay <= prevMonthSize; monthDay++) {
+    pushDay(DateInfo.fromValues({ ...prevMonthInfo.getValues(), monthDay }));
   }
 
   for (let monthDay = 1; monthDay <= monthSize; monthDay++) {
-    pushDay({ year: monthInfo.year, month: monthInfo.month, monthDay });
+    pushDay(DateInfo.fromValues({ year: monthInfo.year, month: monthInfo.month, monthDay }));
   }
 
   const remainingSize = 7 * 6 - pushCount;
 
   for (let monthDay = 1; monthDay <= remainingSize; monthDay++) {
-    pushDay({ ...nextMonthInfo, monthDay });
+    pushDay(DateInfo.fromValues({ ...nextMonthInfo.getValues(), monthDay }));
   }
 
   return weeks;

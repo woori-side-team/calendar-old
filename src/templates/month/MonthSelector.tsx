@@ -3,36 +3,33 @@ import styled from "@emotion/styled";
 import { css, Theme } from "@emotion/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { getNextMonth, getPrevMonth, MonthInfo } from "utils/DateUtils";
+import DateInfo from "utils/DateInfo";
 import useInfiniteSwiper from "hooks/useInfiniteSwiper";
 
 interface MonthSelectorProps {
-  selectedMonthInfo: MonthInfo;
-  setSelectedMonthInfo: (value: MonthInfo) => void;
+  selectedMonthInfo: DateInfo;
+  setSelectedMonthInfo: (value: DateInfo) => void;
 }
 
 const MonthSelector = ({ selectedMonthInfo, setSelectedMonthInfo }: MonthSelectorProps) => {
-  const initialMonthInfos: Array<MonthInfo> = [];
+  const initialItems: Array<DateInfo> = [];
 
   for (let month = 1; month <= 12; month++) {
-    initialMonthInfos.push({
-      year: selectedMonthInfo.year,
-      month,
-    });
+    initialItems.push(
+      DateInfo.fromValues({
+        year: selectedMonthInfo.year,
+        month,
+      })
+    );
   }
 
-  const {
-    items: monthInfos,
-    selectedIndex,
-    setSelectedIndex,
-    swiperProps,
-  } = useInfiniteSwiper<MonthInfo>({
-    initialItems: initialMonthInfos,
+  const { items, selectedIndex, setSelectedIndex, swiperProps } = useInfiniteSwiper<DateInfo>({
+    initialItems,
     initialSelectedIndex: selectedMonthInfo.month - 1,
-    createPrevItem: getPrevMonth,
-    createNextItem: getNextMonth,
-    onSelectItem: newMonthInfo => {
-      setSelectedMonthInfo(newMonthInfo);
+    createPrevItem: item => item.addMonth(-1),
+    createNextItem: item => item.addMonth(1),
+    onSelectItem: item => {
+      setSelectedMonthInfo(item);
     },
   });
 
@@ -42,7 +39,7 @@ const MonthSelector = ({ selectedMonthInfo, setSelectedMonthInfo }: MonthSelecto
 
   return (
     <StyledSwiper {...swiperProps} slidesPerView={3} centeredSlides>
-      {monthInfos.map((monthInfo, index) => (
+      {items.map((item, index) => (
         <SwiperSlide key={index}>
           <Title
             isActive={index === selectedIndex}
@@ -50,7 +47,7 @@ const MonthSelector = ({ selectedMonthInfo, setSelectedMonthInfo }: MonthSelecto
               handleClickTitle(index);
             }}
           >
-            {`${monthInfo.year}.${monthInfo.month}`}
+            {`${item.year}.${item.month}`}
           </Title>
         </SwiperSlide>
       ))}

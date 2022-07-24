@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import styled from "@emotion/styled";
 import { Theme, useTheme } from "@emotion/react";
 
-import { getNow } from "utils/DateUtils";
+import DateInfo from "utils/DateInfo";
 import { schedulesState } from "states/Schedule";
 import { PersistentSheetModal, PersistentSheetModalProps } from "components/Modals";
 import { Ripple } from "components/Effects";
@@ -11,7 +11,7 @@ import { Ripple } from "components/Effects";
 const ScheduleSheet = (props: Omit<PersistentSheetModalProps, "children">) => {
   const theme = useTheme();
   const schedules = useRecoilValue(schedulesState);
-  const now = getNow();
+  const now = DateInfo.now();
   const colors = getColors(theme);
 
   return (
