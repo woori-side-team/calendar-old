@@ -14,6 +14,8 @@ const ScheduleSheet = () => {
   const now = DateInfo.now();
   const colors = getColors(theme);
 
+  const schedulesToShow = schedules.filter(schedule => schedule.start.month === now.month);
+
   return (
     <PersistentSheetModal breakpoints={[0.1, 0.75]} state="MinHeight">
       <Header>
@@ -21,20 +23,27 @@ const ScheduleSheet = () => {
         <Ripple Component={EditButton}>편집</Ripple>
       </Header>
       <Content>
-        {schedules
-          .filter(schedule => schedule.start.month === now.month)
-          .map((schedule, index) => (
-            <Schedule key={index}>
-              <Marker color={colors[schedule.colorIndex % colors.length]} type={schedule.type}>
-                {schedule.start.monthDay}
-              </Marker>
-              {`[${schedule.tag}] ${schedule.content}`}
-            </Schedule>
-          ))}
+        {schedulesToShow.slice(0, maxShowCount).map((schedule, index) => (
+          <Schedule key={index}>
+            <Marker color={colors[schedule.colorIndex % colors.length]} type={schedule.type}>
+              {schedule.start.monthDay}
+            </Marker>
+            {`[${schedule.tag}] ${schedule.content}`}
+          </Schedule>
+        ))}
+        {schedulesToShow.length > maxShowCount && (
+          <>
+            <Dot />
+            <Dot />
+            <Dot />
+          </>
+        )}
       </Content>
     </PersistentSheetModal>
   );
 };
+
+const maxShowCount = 7;
 
 function getColors(theme: Theme) {
   return [theme.tint.indigo, theme.tint.orange, theme.tint.pink, theme.tint.teal];
@@ -109,6 +118,24 @@ const Marker = styled.div<MarkerProps>`
   background-color: ${({ color }) => color};
 
   border-radius: ${({ type }) => (type === "Hours" ? "50%" : 0)};
+`;
+
+const Dot = styled.div`
+  text-align: center;
+
+  width: 100%;
+  height: 8px;
+
+  &::after {
+    content: "";
+    display: inline-block;
+
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+
+    background-color: ${({ theme }) => theme.background.tertiary};
+  }
 `;
 
 export default ScheduleSheet;
