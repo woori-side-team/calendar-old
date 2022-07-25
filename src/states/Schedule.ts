@@ -123,7 +123,7 @@ export const schedulesState = atom<Array<Schedule>>({
       content: "백엔드 공부하기",
       type: "AllDay",
       start: DateInfo.fromValues({ year: 2022, month: 7, monthDay: 19 }),
-      end: DateInfo.fromValues({ year: 2022, month: 8, monthDay: 2 }),
+      end: DateInfo.fromValues({ year: 2022, month: 8, monthDay: 4 }),
       colorIndex: 4,
     },
     {

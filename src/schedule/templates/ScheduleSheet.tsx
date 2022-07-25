@@ -29,7 +29,7 @@ const ScheduleSheet = () => {
   };
 
   return (
-    <PersistentSheetModal breakpoints={[0.1, 0.75]} state="MinHeight">
+    <PersistentSheetModal breakpoints={[0.15, 0.8]} state="MinHeight">
       <Header>
         <Title>다가오는 일정</Title>
         {mode === "View" ? (
@@ -200,7 +200,7 @@ const Marker = styled.div<MarkerProps>`
 
 const Dots = styled.div`
   width: 100%;
-  margin-top: 2px;
+  margin-top: 8px;
 `;
 
 const Dot = styled.div`

@@ -47,6 +47,7 @@ const MonthView = ({ selectedMonthInfo }: MonthViewProps) => {
       {selectedMonthInfo.getMonthCalendar().map((week, weekIndex) => (
         <Row key={weekIndex}>
           {week.map(day => {
+            const isSelectedMonth = day.isSameMonth(selectedMonthInfo);
             const currentSchedules = scheduleMap[getDayKey(day)];
 
             const allDaySchedules = !currentSchedules
@@ -60,26 +61,30 @@ const MonthView = ({ selectedMonthInfo }: MonthViewProps) => {
             const hoursOnly = allDaySchedules.length === 0;
 
             return (
-              <DayCell key={day.monthDay} isSelectedMonth={day.isSameMonth(selectedMonthInfo)}>
+              <DayCell key={day.monthDay} isSelectedMonth={isSelectedMonth}>
                 <Day isNow={day.isSameDay(now)}>{day.monthDay}</Day>
-                {allDaySchedules.map(([schedule], scheduleIndex) => (
-                  <Markers key={scheduleIndex} alignCenter={false}>
-                    <AllDayMarker
-                      color={colors[schedule.colorIndex % colors.length]}
-                      isStart={day.isSameDay(schedule.start)}
-                      isEnd={day.isSameDay(schedule.end)}
-                    />
-                  </Markers>
-                ))}
-                <Markers alignCenter={hoursOnly}>
-                  {hoursSchedules.map(([schedule], scheduleIndex) => (
-                    <HoursMarker
-                      key={scheduleIndex}
-                      color={colors[schedule.colorIndex % colors.length]}
-                      large={hoursOnly}
-                    />
-                  ))}
-                </Markers>
+                {isSelectedMonth && (
+                  <>
+                    {allDaySchedules.map(([schedule], scheduleIndex) => (
+                      <Markers key={scheduleIndex} alignCenter={false}>
+                        <AllDayMarker
+                          color={colors[schedule.colorIndex % colors.length]}
+                          isStart={day.isSameDay(schedule.start)}
+                          isEnd={day.isSameDay(schedule.end)}
+                        />
+                      </Markers>
+                    ))}
+                    <Markers alignCenter={hoursOnly}>
+                      {hoursSchedules.map(([schedule], scheduleIndex) => (
+                        <HoursMarker
+                          key={scheduleIndex}
+                          color={colors[schedule.colorIndex % colors.length]}
+                          large={hoursOnly}
+                        />
+                      ))}
+                    </Markers>
+                  </>
+                )}
               </DayCell>
             );
           })}
