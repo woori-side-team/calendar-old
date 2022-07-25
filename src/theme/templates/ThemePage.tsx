@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
 
-import Page, { PageContent } from "templates/Page";
+import Page, { PageContent } from "layout/templates/Page";
 
 const ThemePage = () => {
   const theme = useTheme();

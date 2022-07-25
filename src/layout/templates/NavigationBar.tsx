@@ -2,7 +2,10 @@ import React from "react";
 import styled from "@emotion/styled";
 import { css, Global } from "@emotion/react";
 
-import { CheckIcon, MemoIcon, ScheduleIcon, SettingsIcon } from "components/Icons";
+import { ReactComponent as ScheduleIcon } from "layout/assets/Schedule.svg";
+import { ReactComponent as CheckIcon } from "layout/assets/Check.svg";
+import { ReactComponent as MemoIcon } from "layout/assets/Memo.svg";
+import { ReactComponent as SettingsIcon } from "layout/assets/Settings.svg";
 import { Ripple } from "components/Effects";
 
 const NavigationBar = () => {

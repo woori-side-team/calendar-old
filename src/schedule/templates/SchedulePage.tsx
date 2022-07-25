@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 
 import DateInfo from "utils/DateInfo";
-import Page, { PageContent } from "templates/Page";
-import MonthSelector from "templates/month/MonthSelector";
-import MonthView from "templates/month/MonthView";
+import Page, { PageContent } from "layout/templates/Page";
+import MonthSelector from "schedule/templates/MonthSelector";
+import MonthView from "schedule/templates/MonthView";
+import ScheduleSheet from "schedule/templates/ScheduleSheet";
 
-const MonthPage = () => (
+const SchedulePage = () => (
   <Page>
     <StyledPageContent>
       <MonthArea />
     </StyledPageContent>
+    <ScheduleSheet />
   </Page>
 );
 
@@ -30,4 +32,4 @@ const MonthArea = () => {
   );
 };
 
-export default MonthPage;
+export default SchedulePage;

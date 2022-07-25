@@ -60,37 +60,6 @@ export default class DateInfo {
   }
 
   // =================================================
-  // Non-chainable methods.
-
-  getValues() {
-    return {
-      year: this.year,
-      month: this.month,
-      monthDay: this.monthDay,
-      hour: this.hour,
-      minute: this.minute,
-      second: this.second,
-      weekDay: this.weekDay,
-    };
-  }
-
-  getMonthSize() {
-    return new Date(this.year, this.month, 0).getDate();
-  }
-
-  compare(other: DateInfo) {
-    return this.date.getTime() - other.date.getTime();
-  }
-
-  isSameMonth(other: DateInfo) {
-    return this.year === other.year && this.month === other.month;
-  }
-
-  isSameDay(other: DateInfo) {
-    return this.isSameMonth(other) && this.monthDay === other.monthDay;
-  }
-
-  // =================================================
   // Chainable methods.
 
   getFirstDayOfMonth() {
@@ -153,5 +122,77 @@ export default class DateInfo {
 
     result.push(other);
     return result;
+  }
+
+  // =================================================
+  // Non-chainable methods.
+
+  getValues() {
+    return {
+      year: this.year,
+      month: this.month,
+      monthDay: this.monthDay,
+      hour: this.hour,
+      minute: this.minute,
+      second: this.second,
+      weekDay: this.weekDay,
+    };
+  }
+
+  getMonthSize() {
+    return new Date(this.year, this.month, 0).getDate();
+  }
+
+  compare(other: DateInfo) {
+    return this.date.getTime() - other.date.getTime();
+  }
+
+  isSameMonth(other: DateInfo) {
+    return this.year === other.year && this.month === other.month;
+  }
+
+  isSameDay(other: DateInfo) {
+    return this.isSameMonth(other) && this.monthDay === other.monthDay;
+  }
+
+  getMonthCalendar() {
+    const monthSize = this.getMonthSize();
+    const monthFirstDay = this.getFirstDayOfMonth();
+
+    const prevMonthInfo = this.addMonth(-1);
+    const prevMonthSize = prevMonthInfo.getMonthSize();
+
+    const nextMonthInfo = this.addMonth(1);
+
+    const weeks: Array<Array<DateInfo>> = [[]];
+    let pushCount = 0;
+
+    function pushDay(day: DateInfo) {
+      const currentWeek = weeks[weeks.length - 1];
+
+      if (currentWeek.length < 7) {
+        currentWeek.push(day);
+      } else {
+        weeks.push([day]);
+      }
+
+      pushCount++;
+    }
+
+    for (let monthDay = prevMonthSize - monthFirstDay.weekDay + 1; monthDay <= prevMonthSize; monthDay++) {
+      pushDay(DateInfo.fromValues({ ...prevMonthInfo.getValues(), monthDay }));
+    }
+
+    for (let monthDay = 1; monthDay <= monthSize; monthDay++) {
+      pushDay(DateInfo.fromValues({ year: this.year, month: this.month, monthDay }));
+    }
+
+    const remainingSize = 7 * 6 - pushCount;
+
+    for (let monthDay = 1; monthDay <= remainingSize; monthDay++) {
+      pushDay(DateInfo.fromValues({ ...nextMonthInfo.getValues(), monthDay }));
+    }
+
+    return weeks;
   }
 }

@@ -2,9 +2,8 @@ import React, { ReactNode } from "react";
 import { IonPage } from "@ionic/react";
 import styled from "@emotion/styled";
 
-import ToolBar from "templates/ToolBar";
-import NavigationBar from "templates/NavigationBar";
-import ScheduleSheet from "templates/ScheduleSheet";
+import ToolBar from "layout/templates/ToolBar";
+import NavigationBar from "layout/templates/NavigationBar";
 import { fixColumnFlexItemOverflow } from "styles/Mixins";
 
 interface PageProps {
@@ -17,7 +16,6 @@ const Page = ({ children }: PageProps) => (
       <ToolBar />
       {children}
       <NavigationBar />
-      <ScheduleSheet />
     </Container>
   </IonPage>
 );

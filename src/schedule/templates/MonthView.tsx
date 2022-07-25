@@ -5,7 +5,6 @@ import { css, Theme, useTheme } from "@emotion/react";
 
 import DateInfo from "utils/DateInfo";
 import { Schedule, schedulesState } from "states/Schedule";
-import useMonthCalendar from "hooks/useMonthCalendar";
 
 interface MonthViewProps {
   selectedMonthInfo: DateInfo;
@@ -14,7 +13,6 @@ interface MonthViewProps {
 const MonthView = ({ selectedMonthInfo }: MonthViewProps) => {
   const schedules = useRecoilValue(schedulesState);
   const theme = useTheme();
-  const weeks = useMonthCalendar(selectedMonthInfo);
   const now = DateInfo.now();
   const colors = getColors(theme);
 
@@ -46,7 +44,7 @@ const MonthView = ({ selectedMonthInfo }: MonthViewProps) => {
           <NameCell key={name}>{name}</NameCell>
         ))}
       </Row>
-      {weeks.map((week, weekIndex) => (
+      {selectedMonthInfo.getMonthCalendar().map((week, weekIndex) => (
         <Row key={weekIndex}>
           {week.map(day => {
             const currentSchedules = scheduleMap[getDayKey(day)];

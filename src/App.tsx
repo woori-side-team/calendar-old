@@ -28,8 +28,8 @@ import "@ionic/react/css/display.css";
 // Swiper.js.
 import "swiper/css";
 
-import MonthPage from "templates/month/MonthPage";
-import ThemePage from "templates/theme/ThemePage";
+import SchedulePage from "schedule/templates/SchedulePage";
+import ThemePage from "theme/templates/ThemePage";
 import { globalStyle } from "styles/Global";
 import { defaultTheme } from "styles/Theme";
 import "styles/IonicTheme.css";
@@ -44,7 +44,7 @@ const App = () => (
         <IonReactRouter>
           <IonRouterOutlet>
             <Route exact path="/">
-              <MonthPage />
+              <SchedulePage />
             </Route>
             <Route exact path="/theme">
               <ThemePage />

@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import { CalendarIcon, ProfileIcon, SearchIcon } from "components/Icons";
+import { ReactComponent as SearchIcon } from "layout/assets/Search.svg";
+import { ReactComponent as ModeIcon } from "layout/assets/Mode.svg";
+import { ReactComponent as ProfileIcon } from "layout/assets/Profile.svg";
 import { Ripple } from "components/Effects";
 
 const ToolBar = () => (
@@ -10,7 +12,7 @@ const ToolBar = () => (
       <SearchIcon />
     </Ripple>
     <Ripple Component={Button}>
-      <CalendarIcon />
+      <ModeIcon />
     </Ripple>
     <Ripple Component={Button}>
       <ProfileIcon />
