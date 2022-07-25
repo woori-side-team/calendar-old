@@ -20,7 +20,7 @@ const MonthView = ({ selectedMonthInfo }: MonthViewProps) => {
   const scheduleMap: Record<string, Array<[Schedule, number]>> = {};
 
   for (const schedule of schedules) {
-    const dayInfos = schedule.start.getDaysUntil(schedule.end);
+    const dayInfos = schedule.type === "Hours" ? [schedule.start] : schedule.start.getDaysUntil(schedule.end);
 
     for (const dayInfo of dayInfos) {
       const dayKey = getDayKey(dayInfo);

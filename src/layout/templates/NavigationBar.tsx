@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { css, Global } from "@emotion/react";
 
+import useRouter from "hooks/useRouter";
 import { Ripple } from "components/Effects";
 
 import { ReactComponent as ScheduleIcon } from "layout/assets/Schedule.svg";
@@ -10,14 +11,12 @@ import { ReactComponent as MemoIcon } from "layout/assets/Memo.svg";
 import { ReactComponent as SettingsIcon } from "layout/assets/Settings.svg";
 
 const NavigationBar = () => {
-  const handleClickScheduleButton = () => {
-    // TODO: Toggle month page vs week page.
-  };
+  const { openSchedule } = useRouter();
 
   return (
     <Container>
       <Global styles={modalOverrideStyle} />
-      <Ripple Component={Button} onClick={handleClickScheduleButton}>
+      <Ripple Component={Button} onClick={openSchedule}>
         <Icon isActive={true}>
           <ScheduleIcon />
         </Icon>

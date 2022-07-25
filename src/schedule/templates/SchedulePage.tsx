@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Route, RouteComponentProps } from "react-router-dom";
 import styled from "@emotion/styled";
 
 import DateInfo from "utils/DateInfo";
@@ -6,11 +7,12 @@ import Page, { PageContent } from "layout/templates/Page";
 import MonthSelector from "schedule/templates/MonthSelector";
 import MonthView from "schedule/templates/MonthView";
 import ScheduleSheet from "schedule/templates/ScheduleSheet";
+import WeekView from "schedule/templates/WeekView";
 
-const SchedulePage = () => (
+const SchedulePage = (props: RouteComponentProps) => (
   <Page>
     <StyledPageContent>
-      <MonthArea />
+      <Views {...props} />
     </StyledPageContent>
     <ScheduleSheet />
   </Page>
@@ -21,13 +23,18 @@ const StyledPageContent = styled(PageContent)`
   flex-direction: column;
 `;
 
-const MonthArea = () => {
+const Views = ({ match }: RouteComponentProps) => {
   const [selectedMonthInfo, setSelectedMonthInfo] = useState(DateInfo.now());
 
   return (
     <>
       <MonthSelector selectedMonthInfo={selectedMonthInfo} setSelectedMonthInfo={setSelectedMonthInfo} />
-      <MonthView selectedMonthInfo={selectedMonthInfo} />
+      <Route exact path={`${match.path}/month`}>
+        <MonthView selectedMonthInfo={selectedMonthInfo} />
+      </Route>
+      <Route exact path={`${match.path}/week`}>
+        <WeekView />
+      </Route>
     </>
   );
 };

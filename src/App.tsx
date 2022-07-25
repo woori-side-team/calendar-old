@@ -1,6 +1,6 @@
 import React from "react";
 import { RecoilRoot } from "recoil";
-import { Route } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 import { Global, ThemeProvider } from "@emotion/react";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
@@ -44,11 +44,10 @@ const App = () => (
         <IonReactRouter>
           <IonRouterOutlet>
             <Route exact path="/">
-              <SchedulePage />
+              <Redirect to="/schedule/month" />
             </Route>
-            <Route exact path="/theme">
-              <ThemePage />
-            </Route>
+            <Route path="/schedule" component={SchedulePage} />
+            <Route exact path="/theme" component={ThemePage} />
           </IonRouterOutlet>
         </IonReactRouter>
       </IonApp>
