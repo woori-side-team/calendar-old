@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
 
+import { Ripple } from "components/Effects";
+
 import { ReactComponent as SearchIcon } from "layout/assets/Search.svg";
 import { ReactComponent as ModeIcon } from "layout/assets/Mode.svg";
 import { ReactComponent as ProfileIcon } from "layout/assets/Profile.svg";
-import { Ripple } from "components/Effects";
 
 const ToolBar = () => (
   <Container>

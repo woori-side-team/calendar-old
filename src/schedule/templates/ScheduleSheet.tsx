@@ -3,13 +3,14 @@ import { useRecoilValue } from "recoil";
 import styled from "@emotion/styled";
 import { css, Theme, useTheme } from "@emotion/react";
 
-import { ReactComponent as ScheduleCancelIcon } from "schedule/assets/ScheduleCancel.svg";
-import { ReactComponent as SchedulePencilIcon } from "schedule/assets/SchedulePencil.svg";
-import { ReactComponent as SheetCancelIcon } from "schedule/assets/SheetCancel.svg";
 import DateInfo from "utils/DateInfo";
 import { Schedule, schedulesState } from "states/Schedule";
 import { PersistentSheetModal } from "components/Modals";
 import { Ripple } from "components/Effects";
+
+import { ReactComponent as ScheduleCancelIcon } from "schedule/assets/ScheduleCancel.svg";
+import { ReactComponent as SchedulePencilIcon } from "schedule/assets/SchedulePencil.svg";
+import { ReactComponent as SheetCancelIcon } from "schedule/assets/SheetCancel.svg";
 
 type Mode = "Edit" | "View";
 
