@@ -1,12 +1,26 @@
+import React from "react";
+import { css, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
+
+import { ReactComponent as NextWeekIcon } from "schedule/assets/NextWeek.svg";
 
 const WeekView = () => (
   <Container>
     <Week>
-      <Day>4 Mon</Day>
+      {Array.from(Array(7).keys()).map(value => (
+        <DayCard key={value} weekDay={value}>
+          <MonthDay>{10 + value}</MonthDay>
+          <WeekDay>{weekDayNames[value]}</WeekDay>
+        </DayCard>
+      ))}
+      <NextWeek>
+        <NextWeekIcon />
+      </NextWeek>
     </Week>
   </Container>
 );
+
+const weekDayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -25,19 +39,57 @@ const Week = styled.div`
   flex-direction: row;
 
   width: 100%;
-  padding: 0 16px;
+  padding: 0 16px 28px 16px;
 `;
 
-const Day = styled.div`
+const cardStyle = (theme: Theme) => css`
   box-sizing: border-box;
 
-  width: 124px;
   height: 160px;
   padding: 16px 6px;
+  flex-shrink: 0;
 
-  color: ${({ theme }) => theme.scale.scale8};
-  border: 1px solid ${({ theme }) => theme.scale.scale2};
+  border: 1px solid ${theme.scale.scale2};
   border-radius: 12px;
+  background-color: transparent;
+`;
+
+interface DayCardProps {
+  weekDay: number;
+}
+
+const DayCard = styled.div<DayCardProps>`
+  ${({ theme }) => cardStyle(theme)}
+
+  width: 124px;
+
+  color: ${({ theme, weekDay }) =>
+    weekDay === 0 ? theme.tint.red : weekDay === 6 ? theme.tint.blue : theme.scale.scale8};
+
+  &:not(:first-of-type) {
+    margin-left: 4px;
+  }
+`;
+
+const NextWeek = styled.div`
+  ${({ theme }) => cardStyle(theme)}
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  width: 46px;
+  margin-left: 4px;
+`;
+
+const MonthDay = styled.span`
+  font-size: 24px;
+`;
+
+const WeekDay = styled.span`
+  margin-left: 2px;
+  font-size: 16px;
 `;
 
 export default WeekView;
