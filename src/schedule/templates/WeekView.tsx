@@ -7,15 +7,18 @@ import { ReactComponent as NextWeekIcon } from "schedule/assets/NextWeek.svg";
 const WeekView = () => (
   <Container>
     <Week>
+      <OtherWeek targetWeek="Prev">
+        <NextWeekIcon />
+      </OtherWeek>
       {Array.from(Array(7).keys()).map(value => (
         <DayCard key={value} weekDay={value}>
           <MonthDay>{10 + value}</MonthDay>
           <WeekDay>{weekDayNames[value]}</WeekDay>
         </DayCard>
       ))}
-      <NextWeek>
+      <OtherWeek targetWeek="Next">
         <NextWeekIcon />
-      </NextWeek>
+      </OtherWeek>
     </Week>
   </Container>
 );
@@ -52,6 +55,10 @@ const cardStyle = (theme: Theme) => css`
   border: 1px solid ${theme.scale.scale2};
   border-radius: 12px;
   background-color: transparent;
+
+  &:not(:first-of-type) {
+    margin-left: 4px;
+  }
 `;
 
 interface DayCardProps {
@@ -65,13 +72,13 @@ const DayCard = styled.div<DayCardProps>`
 
   color: ${({ theme, weekDay }) =>
     weekDay === 0 ? theme.tint.red : weekDay === 6 ? theme.tint.blue : theme.scale.scale8};
-
-  &:not(:first-of-type) {
-    margin-left: 4px;
-  }
 `;
 
-const NextWeek = styled.div`
+interface OtherWeekProps {
+  targetWeek: "Prev" | "Next";
+}
+
+const OtherWeek = styled.div<OtherWeekProps>`
   ${({ theme }) => cardStyle(theme)}
 
   display: flex;
@@ -80,7 +87,8 @@ const NextWeek = styled.div`
   align-items: center;
 
   width: 46px;
-  margin-left: 4px;
+
+  ${({ targetWeek }) => targetWeek === "Prev" && `transform: rotate(180deg);`}
 `;
 
 const MonthDay = styled.span`
