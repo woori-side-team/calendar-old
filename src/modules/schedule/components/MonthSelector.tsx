@@ -1,10 +1,9 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { css, Theme } from "@emotion/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import DateInfo from "utils/DateInfo";
-import useInfiniteSwiper from "hooks/useInfiniteSwiper";
+import DateInfo from "common/utils/DateInfo";
+import useInfiniteSwiper from "common/hooks/useInfiniteSwiper";
 
 interface MonthSelectorProps {
   selectedMonthInfo: DateInfo;

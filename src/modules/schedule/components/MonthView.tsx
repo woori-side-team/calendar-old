@@ -1,10 +1,9 @@
-import React from "react";
 import { useRecoilValue } from "recoil";
 import styled from "@emotion/styled";
 import { css, Theme, useTheme } from "@emotion/react";
 
-import DateInfo from "utils/DateInfo";
-import { Schedule, schedulesState } from "states/Schedule";
+import DateInfo from "common/utils/DateInfo";
+import { Schedule, schedulesState } from "common/states/Schedule";
 
 interface MonthViewProps {
   selectedMonthInfo: DateInfo;

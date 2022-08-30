@@ -1,14 +1,13 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { css, Global } from "@emotion/react";
 
-import useRouter from "hooks/useRouter";
-import { Ripple } from "components/Effects";
+import useRouter from "common/hooks/useRouter";
+import { Ripple } from "common/components/Effects";
 
-import { ReactComponent as ScheduleIcon } from "layout/assets/Schedule.svg";
-import { ReactComponent as CheckIcon } from "layout/assets/Check.svg";
-import { ReactComponent as MemoIcon } from "layout/assets/Memo.svg";
-import { ReactComponent as SettingsIcon } from "layout/assets/Settings.svg";
+import { ReactComponent as ScheduleIcon } from "modules/layout/assets/Schedule.svg";
+import { ReactComponent as CheckIcon } from "modules/layout/assets/Check.svg";
+import { ReactComponent as MemoIcon } from "modules/layout/assets/Memo.svg";
+import { ReactComponent as SettingsIcon } from "modules/layout/assets/Settings.svg";
 
 const NavigationBar = () => {
   const { openSchedule } = useRouter();

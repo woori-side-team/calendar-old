@@ -2,9 +2,9 @@ import React, { ReactNode } from "react";
 import { IonPage } from "@ionic/react";
 import styled from "@emotion/styled";
 
-import ToolBar from "layout/templates/ToolBar";
-import NavigationBar from "layout/templates/NavigationBar";
-import { fixColumnFlexItemOverflow } from "styles/Mixins";
+import ToolBar from "modules/layout/components/ToolBar";
+import NavigationBar from "modules/layout/components/NavigationBar";
+import { fixColumnFlexItemOverflow } from "common/styles/Mixins";
 
 interface PageProps {
   children: ReactNode;

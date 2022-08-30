@@ -1,12 +1,11 @@
-import React from "react";
 import styled from "@emotion/styled";
 
-import useRouter from "hooks/useRouter";
-import { Ripple } from "components/Effects";
+import useRouter from "common/hooks/useRouter";
+import { Ripple } from "common/components/Effects";
 
-import { ReactComponent as SearchIcon } from "layout/assets/Search.svg";
-import { ReactComponent as ModeIcon } from "layout/assets/Mode.svg";
-import { ReactComponent as ProfileIcon } from "layout/assets/Profile.svg";
+import { ReactComponent as SearchIcon } from "modules/layout/assets/Search.svg";
+import { ReactComponent as ModeIcon } from "modules/layout/assets/Mode.svg";
+import { ReactComponent as ProfileIcon } from "modules/layout/assets/Profile.svg";
 
 const ToolBar = () => {
   const { openSchedule } = useRouter();

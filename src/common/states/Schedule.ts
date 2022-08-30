@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-import DateInfo from "utils/DateInfo";
+import DateInfo from "common/utils/DateInfo";
 
 export interface Schedule {
   tag: string;

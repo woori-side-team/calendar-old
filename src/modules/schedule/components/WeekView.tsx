@@ -1,9 +1,8 @@
-import React from "react";
 import { css, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 
-import { ReactComponent as NextWeekIcon } from "schedule/assets/NextWeek.svg";
-import { ReactComponent as MemoIcon } from "schedule/assets/Memo.svg";
+import { ReactComponent as NextWeekIcon } from "modules/schedule/assets/NextWeek.svg";
+import { ReactComponent as MemoIcon } from "modules/schedule/assets/Memo.svg";
 
 const WeekView = () => (
   <Container>

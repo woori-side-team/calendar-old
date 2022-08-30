@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Route, RouteComponentProps } from "react-router-dom";
 import styled from "@emotion/styled";
 
-import DateInfo from "utils/DateInfo";
-import Page, { PageContent } from "layout/templates/Page";
-import MonthSelector from "schedule/templates/MonthSelector";
-import MonthView from "schedule/templates/MonthView";
-import ScheduleSheet from "schedule/templates/ScheduleSheet";
-import WeekView from "schedule/templates/WeekView";
+import DateInfo from "common/utils/DateInfo";
+import Page, { PageContent } from "modules/layout/components/Page";
+import MonthSelector from "modules/schedule/components/MonthSelector";
+import MonthView from "modules/schedule/components/MonthView";
+import ScheduleSheet from "modules/schedule/components/ScheduleSheet";
+import WeekView from "modules/schedule/components/WeekView";
 
 const SchedulePage = (props: RouteComponentProps) => (
   <Page>

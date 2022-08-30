@@ -1,4 +1,3 @@
-import React from "react";
 import { RecoilRoot } from "recoil";
 import { Redirect, Route } from "react-router-dom";
 import { Global, ThemeProvider } from "@emotion/react";
@@ -28,11 +27,11 @@ import "@ionic/react/css/display.css";
 // Swiper.js.
 import "swiper/css";
 
-import SchedulePage from "schedule/templates/SchedulePage";
-import ThemePage from "theme/templates/ThemePage";
-import { globalStyle } from "styles/Global";
-import { defaultTheme } from "styles/Theme";
-import "styles/IonicTheme.css";
+import SchedulePage from "modules/schedule/components/SchedulePage";
+import ThemePage from "modules/demo/components/ThemePage";
+import { globalStyle } from "common/styles/Global";
+import { defaultTheme } from "common/styles/Theme";
+import "common/styles/IonicTheme.css";
 
 setupIonicReact();
 
