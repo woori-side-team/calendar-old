@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Route, RouteComponentProps } from "react-router-dom";
 import styled from "@emotion/styled";
 
@@ -8,6 +8,7 @@ import MonthSelector from "modules/schedule/components/MonthSelector";
 import MonthView from "modules/schedule/components/MonthView";
 import ScheduleSheet from "modules/schedule/components/ScheduleSheet";
 import WeekView from "modules/schedule/components/WeekView";
+import DayView from "modules/schedule/components/DayView";
 
 const SchedulePage = (props: RouteComponentProps) => (
   <Page>
@@ -34,6 +35,9 @@ const Views = ({ match }: RouteComponentProps) => {
       </Route>
       <Route exact path={`${match.path}/week`}>
         <WeekView />
+      </Route>
+      <Route exact path={`${match.path}/day`}>
+        <DayView selectedDayInfo={DateInfo.fromValues({ year: 2022, month: 9, monthDay: 1 })} />
       </Route>
     </>
   );

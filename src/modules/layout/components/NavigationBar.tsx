@@ -10,12 +10,12 @@ import { ReactComponent as MemoIcon } from "modules/layout/assets/Memo.svg";
 import { ReactComponent as SettingsIcon } from "modules/layout/assets/Settings.svg";
 
 const NavigationBar = () => {
-  const { openSchedule } = useRouter();
+  const { openMonthOrWeek } = useRouter();
 
   return (
     <Container>
       <Global styles={modalOverrideStyle} />
-      <Ripple Component={Button} onClick={openSchedule}>
+      <Ripple Component={Button} onClick={openMonthOrWeek}>
         <Icon isActive={true}>
           <ScheduleIcon />
         </Icon>

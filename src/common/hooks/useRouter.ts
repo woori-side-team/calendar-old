@@ -4,7 +4,7 @@ export default function useRouter() {
   const location = useLocation();
   const history = useHistory();
 
-  function openSchedule() {
+  function openMonthOrWeek() {
     if (location.pathname.includes("/schedule/month")) {
       history.push("/schedule/week");
     } else {
@@ -12,9 +12,14 @@ export default function useRouter() {
     }
   }
 
+  function openDay() {
+    history.push("/schedule/day");
+  }
+
   return {
     location,
     history,
-    openSchedule,
+    openMonthOrWeek,
+    openDay,
   };
 }

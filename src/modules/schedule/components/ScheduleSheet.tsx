@@ -5,6 +5,7 @@ import { css, Theme, useTheme } from "@emotion/react";
 
 import DateInfo from "common/utils/DateInfo";
 import { Schedule, schedulesState } from "common/states/Schedule";
+import useRouter from "common/hooks/useRouter";
 import { PersistentSheetModal } from "common/components/Modals";
 import { Ripple } from "common/components/Effects";
 
@@ -112,6 +113,7 @@ interface ScheduleProps {
 
 const ScheduleView = ({ schedule, mode }: ScheduleProps) => {
   const theme = useTheme();
+  const { openDay } = useRouter();
   const colors = getColors(theme);
 
   return (
@@ -119,7 +121,7 @@ const ScheduleView = ({ schedule, mode }: ScheduleProps) => {
       <Marker color={colors[schedule.colorIndex % colors.length]} type={schedule.type}>
         {schedule.start.monthDay}
       </Marker>
-      {`[${schedule.tag}] ${schedule.content}`}
+      <ScheduleContent onClick={openDay}>{`[${schedule.tag}] ${schedule.content}`}</ScheduleContent>
       {mode === "Edit" && (
         <ScheduleControls>
           <Ripple Component={ScheduleControlButton}>
@@ -152,6 +154,14 @@ const ScheduleContainer = styled.div`
   &:not(:first-of-type) {
     margin-top: 24px;
   }
+`;
+
+const ScheduleContent = styled.button`
+  font-family: inherit;
+  font-size: inherit;
+
+  border: 0;
+  background-color: transparent;
 `;
 
 const ScheduleControls = styled.div`

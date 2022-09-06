@@ -8,14 +8,14 @@ import { ReactComponent as ModeIcon } from "modules/layout/assets/Mode.svg";
 import { ReactComponent as ProfileIcon } from "modules/layout/assets/Profile.svg";
 
 const ToolBar = () => {
-  const { openSchedule } = useRouter();
+  const { openMonthOrWeek } = useRouter();
 
   return (
     <Container>
       <Ripple Component={Button}>
         <SearchIcon />
       </Ripple>
-      <Ripple Component={Button} onClick={openSchedule}>
+      <Ripple Component={Button} onClick={openMonthOrWeek}>
         <ModeIcon />
       </Ripple>
       <Ripple Component={Button}>
